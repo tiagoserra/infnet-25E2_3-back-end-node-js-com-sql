@@ -55,7 +55,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Container fluid className="vh-100 d-flex align-items-center justify-content-center bg-light">
+    <Container fluid className="vh-100 d-flex align-items-center justify-content-center login-background">
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={8} md={6} lg={4} xl={3}>
           <Card className="shadow-lg border-0">

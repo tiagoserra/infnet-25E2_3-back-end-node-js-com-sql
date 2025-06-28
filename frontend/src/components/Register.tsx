@@ -87,7 +87,7 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Container fluid className="vh-100 d-flex align-items-center justify-content-center bg-light">
+    <Container fluid className="vh-100 d-flex align-items-center justify-content-center register-background">
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={8} md={6} lg={5} xl={4}>
           <Card className="shadow-lg border-0">

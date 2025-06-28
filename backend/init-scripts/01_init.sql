@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS enrollments (
 
 -- Inserir dados iniciais (opcional)
 INSERT IGNORE INTO users (name, email, login, password, type) VALUES 
-('Administrador', 'admin@plataforma.com', 'admin', '$2b$10$example_hash', 'admin'),
-('Professor Teste', 'professor@plataforma.com', 'professor', '$2b$10$example_hash', 'professor'),
-('Aluno Teste', 'aluno@plataforma.com', 'aluno', '$2b$10$example_hash', 'aluno');
+('Administrador', 'admin@plataforma.com', 'admin', '$2b$10$vYGbpC3BhDv2KS2/LpdxqOhyb4Dccuxn79NYHp.dJkeYK7sKpxtd2', 'admin'),
+('Professor Teste', 'professor@plataforma.com', 'professor', '$2b$10$vYGbpC3BhDv2KS2/LpdxqOhyb4Dccuxn79NYHp.dJkeYK7sKpxtd2', 'professor'),
+('Aluno Teste', 'aluno@plataforma.com', 'aluno', '$2b$10$vYGbpC3BhDv2KS2/LpdxqOhyb4Dccuxn79NYHp.dJkeYK7sKpxtd2', 'aluno');
 
 INSERT IGNORE INTO courses (name, description, cover, startDate, endDate) VALUES 
 ('Curso de Node.js', 'Aprenda desenvolvimento backend com Node.js', 'nodejs-cover.jpg', '2024-01-15', '2024-03-15'),
