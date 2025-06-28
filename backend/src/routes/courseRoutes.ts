@@ -7,6 +7,9 @@ const courseController = new CourseController();
 // GET /courses - Get all courses
 router.get('/', courseController.getAll.bind(courseController));
 
+// GET /courses/paginated - Get paginated courses with search
+router.get('/paginated', courseController.getPaginatedCourses.bind(courseController));
+
 // GET /courses/active - Get active courses
 router.get('/active', courseController.getActiveCourses.bind(courseController));
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { getCurrentUser } from '../store/authSlice';
 import Navbar from './Navbar';
+import CourseList from './CourseList';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -108,6 +109,25 @@ const Home: React.FC = () => {
                 </div>
               </Card.Body>
             </Card>
+            
+            {/* Seção de Cursos - Apenas para alunos */}
+            {user.type === 'aluno' && (
+              <Card className="shadow-sm border-0 mt-4">
+                <Card.Body className="p-4">
+                  <div className="d-flex align-items-center mb-4">
+                    <i className="bi bi-book fs-3 text-primary me-3"></i>
+                    <div>
+                      <h4 className="mb-1">Cursos Disponíveis</h4>
+                      <p className="text-muted mb-0">
+                        Explore e inscreva-se nos cursos oferecidos
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <CourseList />
+                </Card.Body>
+              </Card>
+            )}
           </Col>
         </Row>
       </Container>

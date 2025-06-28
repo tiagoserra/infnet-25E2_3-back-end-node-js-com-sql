@@ -170,4 +170,27 @@ export class CourseController extends BaseController<Course> {
             });
         }
     }
+
+    async getPaginatedCourses(req: Request, res: Response): Promise<void> {
+        try {
+            const page = parseInt(req.query.page as string) || 1;
+            const limit = parseInt(req.query.limit as string) || 25;
+            const searchName = req.query.search as string;
+
+            const result = await this.courseService.GetPaginated(page, limit, searchName);
+
+            res.status(200).json({
+                success: true,
+                data: result.data,
+                pagination: result.pagination,
+                message: 'Courses retrieved successfully'
+            });
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error instanceof Error ? error.message : 'Unknown error occurred',
+                error: process.env.NODE_ENV === 'development' ? error : undefined
+            });
+        }
+    }
 } 

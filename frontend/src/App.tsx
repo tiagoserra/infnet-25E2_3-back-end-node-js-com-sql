@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
-import { setUserFromStorage } from './store/authSlice';
+import { setUserFromStorage, logout } from './store/authSlice';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
@@ -17,6 +17,19 @@ const AppContent: React.FC = () => {
 
   useEffect(() => {
     dispatch(setUserFromStorage());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const handleLogout = () => {
+      dispatch(logout());
+    };
+
+    // Listen for the auth:logout event dispatched by API interceptor
+    window.addEventListener('auth:logout', handleLogout);
+
+    return () => {
+      window.removeEventListener('auth:logout', handleLogout);
+    };
   }, [dispatch]);
 
   return (

@@ -14,22 +14,30 @@ export class EnrollmentController extends BaseController<Enrollment> {
 
     async create(req: Request, res: Response): Promise<void> {
         try {
-            const { enrollDate, conclusionDate, userId, courseId, status } = req.body;
+            const { courseId } = req.body;
 
-            if (!enrollDate || !userId || !courseId || !status) {
+            const userToken = (req as any).user;
+            if (!userToken || !userToken.id) {
+                res.status(401).json({
+                    success: false,
+                    message: 'User not authenticated'
+                });
+                return;
+            }
+
+            if (!courseId) {
                 res.status(400).json({
                     success: false,
-                    message: 'Missing required fields: enrollDate, userId, courseId, status'
+                    message: 'Missing required field: courseId'
                 });
                 return;
             }
 
             const enrollmentData = {
-                enrollDate: new Date(enrollDate),
-                conclusionDate: conclusionDate ? new Date(conclusionDate) : undefined,
-                userId: parseInt(userId),
+                enrollDate: new Date(),
+                userId: parseInt(userToken.id),
                 courseId: parseInt(courseId),
-                status: status as EnrollmentStatus
+                status: EnrollmentStatus.IN_PROGRESS
             };
 
             const enrollment = await this.enrollmentService.Insert(enrollmentData);
@@ -173,7 +181,6 @@ export class EnrollmentController extends BaseController<Enrollment> {
         }
     }
 
-    // Method to get enrollments by user ID
     async getEnrollmentsByUser(req: Request, res: Response): Promise<void> {
         try {
             const userId = parseInt(req.params.userId);
@@ -233,7 +240,6 @@ export class EnrollmentController extends BaseController<Enrollment> {
         }
     }
 
-    // Method to get enrollments by status
     async getEnrollmentsByStatus(req: Request, res: Response): Promise<void> {
         try {
             const { status } = req.query;
