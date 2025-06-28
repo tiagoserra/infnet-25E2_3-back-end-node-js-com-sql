@@ -158,17 +158,6 @@ TTL user:123
 FLUSHALL
 ```
 
-## 🚀 Próximos Passos
-
-1. **Métricas**: Implementar métricas de hit/miss ratio
-2. **Cache Warming**: Pré-carregar dados críticos
-3. **Estratégias de Invalidação**: Implementar invalidação inteligente
-4. **Clustering**: Configurar Redis em cluster para alta disponibilidade
-
-## 📝 Exemplo de Uso Completo
-
-Veja o arquivo `src/examples/cache-usage.example.ts` para exemplos detalhados de uso do sistema de cache.
-
 ## 🛠️ Troubleshooting
 
 ### Problemas Comuns

@@ -17,5 +17,6 @@ router.post('/auth/register', authController.register.bind(authController));
 router.use('/users', authenticateToken, requireAdmin, userRoutes);
 router.use('/courses', authenticateToken, courseRoutes);
 router.use('/enrollments', authenticateToken, enrollmentRoutes);
+router.get('/me', authenticateToken, authController.me.bind(authController));
 
 export default router; 
