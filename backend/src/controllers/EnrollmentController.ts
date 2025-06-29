@@ -157,9 +157,9 @@ export class EnrollmentController extends BaseController<Enrollment> {
                 return;
             }
 
-            const enrollment = await this.enrollmentService.CancelEnrollment(id);
+            const deleted = await this.enrollmentService.CancelEnrollment(id);
 
-            if (!enrollment) {
+            if (!deleted) {
                 res.status(404).json({
                     success: false,
                     message: 'Enrollment not found'
@@ -169,8 +169,8 @@ export class EnrollmentController extends BaseController<Enrollment> {
 
             res.status(200).json({
                 success: true,
-                data: enrollment,
-                message: 'Enrollment canceled successfully'
+                data: { deleted: true },
+                message: 'Enrollment canceled and removed successfully'
             });
         } catch (error) {
             res.status(400).json({
@@ -259,6 +259,34 @@ export class EnrollmentController extends BaseController<Enrollment> {
                 success: true,
                 data: statusEnrollments,
                 message: `Enrollments with status '${status}' retrieved successfully`
+            });
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error instanceof Error ? error.message : 'Unknown error occurred',
+                error: process.env.NODE_ENV === 'development' ? error : undefined
+            });
+        }
+    }
+
+    async getUserEnrolledCourses(req: Request, res: Response): Promise<void> {
+        try {
+            const userId = parseInt(req.params.userId);
+            
+            if (isNaN(userId)) {
+                res.status(400).json({
+                    success: false,
+                    message: 'Invalid user ID format'
+                });
+                return;
+            }
+
+            const enrolledCourses = await this.enrollmentService.GetUserEnrolledCourses(userId);
+
+            res.status(200).json({
+                success: true,
+                data: enrolledCourses,
+                message: 'User enrolled courses retrieved successfully'
             });
         } catch (error) {
             res.status(500).json({

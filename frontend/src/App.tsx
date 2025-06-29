@@ -7,6 +7,7 @@ import { setUserFromStorage, logout } from './store/authSlice';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
+import MyCourses from './components/MyCourses';
 import ProtectedRoute from './components/ProtectedRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -48,6 +49,14 @@ const AppContent: React.FC = () => {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/my-courses" 
+          element={
+            <ProtectedRoute>
+              <MyCourses />
             </ProtectedRoute>
           } 
         />

@@ -6,9 +6,10 @@ import type { CourseWithEnrollment } from '../types';
 
 interface CourseCardProps {
   course: CourseWithEnrollment;
+  onEnrollmentCanceled?: (courseId: number) => void;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ course, onEnrollmentCanceled }) => {
   const dispatch = useAppDispatch();
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [isCanceling, setIsCanceling] = useState(false);
@@ -46,6 +47,11 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           enrollmentId: course.userEnrollment.id,
           courseId: course.id
         })).unwrap();
+        
+        // Chama o callback para notificar que o cancelamento foi bem-sucedido
+        if (onEnrollmentCanceled) {
+          onEnrollmentCanceled(course.id);
+        }
       } catch (error) {
         console.error('Error canceling enrollment:', error);
       } finally {
@@ -65,6 +71,10 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     };
 
     const status = statusMap[course.userEnrollment.status as keyof typeof statusMap];
+    
+    // Verificação de segurança - se o status não existir, não renderiza o badge
+    if (!status) return null;
+    
     return (
       <Badge bg={status.variant} className="mb-2">
         {status.text}

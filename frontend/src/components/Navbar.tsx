@@ -30,6 +30,12 @@ const Navbar: React.FC = () => {
               <i className="bi bi-house me-1"></i>
               Home
             </Nav.Link>
+            {user && user.type === 'aluno' && (
+              <Nav.Link href="/my-courses" className="fw-semibold">
+                <i className="bi bi-journal-bookmark me-1"></i>
+                Meus Cursos
+              </Nav.Link>
+            )}
           </Nav>
           
           <Nav className="align-items-center">

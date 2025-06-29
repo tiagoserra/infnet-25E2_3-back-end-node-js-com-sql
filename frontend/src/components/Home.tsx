@@ -58,35 +58,6 @@ const Home: React.FC = () => {
                   </p>
                 </div>
 
-                <Row className="g-4">
-                  <Col md={6}>
-                    <Card className="h-100 border-primary">
-                      <Card.Body className="text-center">
-                        <div className="mb-3">
-                          <i className="bi bi-person-circle fs-1 text-primary"></i>
-                        </div>
-                        <h5 className="card-title">Informações do Perfil</h5>
-                        <p className="card-text text-muted">
-                          Visualize e gerencie suas informações pessoais
-                        </p>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                  
-                  <Col md={6}>
-                    <Card className="h-100 border-success">
-                      <Card.Body className="text-center">
-                        <div className="mb-3">
-                          <i className="bi bi-book fs-1 text-success"></i>
-                        </div>
-                        <h5 className="card-title">Cursos</h5>
-                        <p className="card-text text-muted">
-                          Acesse seus cursos e materiais de estudo
-                        </p>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                </Row>
 
                 <div className="mt-5 p-4 bg-light rounded">
                   <Row>

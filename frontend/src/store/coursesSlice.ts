@@ -140,10 +140,11 @@ const coursesSlice = createSlice({
         state.error = null;
       })
       .addCase(cancelEnrollment.fulfilled, (state, action) => {
-        const { courseId, enrollment } = action.payload;
+        const { courseId } = action.payload;
         const courseIndex = state.courses.findIndex(course => course.id === courseId);
         if (courseIndex !== -1) {
-          state.courses[courseIndex].userEnrollment = enrollment;
+          // Como o enrollment foi deletado, removemos a referência
+          state.courses[courseIndex].userEnrollment = undefined;
         }
         state.error = null;
       })

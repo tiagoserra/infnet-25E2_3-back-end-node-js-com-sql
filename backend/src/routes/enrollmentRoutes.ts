@@ -10,6 +10,9 @@ router.get('/', enrollmentController.getAll.bind(enrollmentController));
 // GET /enrollments/status - Get enrollments by status
 router.get('/status', enrollmentController.getEnrollmentsByStatus.bind(enrollmentController));
 
+// GET /enrollments/user/:userId/courses - Get enrolled courses with course details by user ID (must come before /user/:userId)
+router.get('/user/:userId/courses', enrollmentController.getUserEnrolledCourses.bind(enrollmentController));
+
 // GET /enrollments/user/:userId - Get enrollments by user ID
 router.get('/user/:userId', enrollmentController.getEnrollmentsByUser.bind(enrollmentController));
 

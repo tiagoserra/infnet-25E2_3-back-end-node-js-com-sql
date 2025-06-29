@@ -104,5 +104,26 @@ export const enrollmentsApi = {
   getEnrollmentById: async (id: number): Promise<Enrollment> => {
     const response = await api.get<ApiResponse<Enrollment>>(`/enrollments/${id}`);
     return response.data.data;
+  },
+
+  getUserEnrolledCourses: async (userId: number): Promise<CourseWithEnrollment[]> => {
+    const response = await api.get<ApiResponse<any[]>>(`/enrollments/user/${userId}/courses`);
+    
+    return response.data.data.map(item => ({
+      id: item.course.id,
+      name: item.course.name,
+      description: item.course.description,
+      cover: item.course.cover,
+      startDate: item.course.startDate,
+      endDate: item.course.endDate,
+      userEnrollment: {
+        id: item.id,
+        enrollDate: item.enrollDate,
+        conclusionDate: item.conclusionDate,
+        userId: item.userId,
+        courseId: item.courseId,
+        status: item.status
+      }
+    }));
   }
 };
