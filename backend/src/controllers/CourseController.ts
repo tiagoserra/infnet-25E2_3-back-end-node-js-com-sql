@@ -174,7 +174,7 @@ export class CourseController extends BaseController<Course> {
     async getPaginatedCourses(req: Request, res: Response): Promise<void> {
         try {
             const page = parseInt(req.query.page as string) || 1;
-            const limit = parseInt(req.query.limit as string) || 25;
+            const limit = parseInt(req.query.limit as string) || 8;
             const searchName = req.query.search as string;
 
             const result = await this.courseService.GetPaginated(page, limit, searchName);

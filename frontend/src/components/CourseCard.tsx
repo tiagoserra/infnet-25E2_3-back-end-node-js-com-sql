@@ -7,9 +7,10 @@ import type { CourseWithEnrollment } from '../types';
 interface CourseCardProps {
   course: CourseWithEnrollment;
   onEnrollmentCanceled?: (courseId: number) => void;
+  userType?: string;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course, onEnrollmentCanceled }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ course, onEnrollmentCanceled, userType }) => {
   const dispatch = useAppDispatch();
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [isCanceling, setIsCanceling] = useState(false);
@@ -196,7 +197,14 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEnrollmentCanceled })
         </div>
         
         <div className="mt-auto">
-          {getActionButton()}
+          {userType === 'aluno' ? getActionButton() : (
+            <div className="text-center py-2">
+              <small className="text-muted">
+                <i className="bi bi-eye me-1"></i>
+                Visualização apenas
+              </small>
+            </div>
+          )}
         </div>
       </Card.Body>
     </Card>

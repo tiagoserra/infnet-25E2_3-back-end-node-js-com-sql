@@ -15,12 +15,10 @@ const initialState: CoursesState = {
   error: null,
 };
 
-// Helper function to create cache key
 const createCacheKey = (params: CourseSearchParams): string => {
   return `page_${params.page}_limit_${params.limit}_search_${params.search || ''}`;
 };
 
-// Async thunks
 export const fetchCoursesWithEnrollments = createAsyncThunk(
   'courses/fetchCoursesWithEnrollments',
   async (userId: number, { rejectWithValue }) => {
@@ -39,8 +37,7 @@ export const fetchPaginatedCoursesWithEnrollments = createAsyncThunk(
     try {
       const state = getState() as { courses: CoursesState };
       const cacheKey = createCacheKey(searchParams);
-      
-      // Check cache first
+
       if (state.courses.cache[cacheKey]) {
         return {
           courses: state.courses.cache[cacheKey].data,
@@ -104,7 +101,7 @@ const coursesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch courses with enrollments
+
       .addCase(fetchCoursesWithEnrollments.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -119,7 +116,7 @@ const coursesSlice = createSlice({
         state.error = action.payload as string;
       })
       
-      // Enroll in course
+
       .addCase(enrollInCourse.pending, (state) => {
         state.error = null;
       })
@@ -135,7 +132,6 @@ const coursesSlice = createSlice({
         state.error = action.payload as string;
       })
       
-      // Cancel enrollment
       .addCase(cancelEnrollment.pending, (state) => {
         state.error = null;
       })
@@ -143,7 +139,6 @@ const coursesSlice = createSlice({
         const { courseId } = action.payload;
         const courseIndex = state.courses.findIndex(course => course.id === courseId);
         if (courseIndex !== -1) {
-          // Como o enrollment foi deletado, removemos a referência
           state.courses[courseIndex].userEnrollment = undefined;
         }
         state.error = null;
@@ -151,8 +146,7 @@ const coursesSlice = createSlice({
       .addCase(cancelEnrollment.rejected, (state, action) => {
         state.error = action.payload as string;
       })
-      
-      // Fetch paginated courses with enrollments
+
       .addCase(fetchPaginatedCoursesWithEnrollments.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -162,8 +156,7 @@ const coursesSlice = createSlice({
         state.courses = action.payload.courses;
         state.pagination = action.payload.pagination;
         state.error = null;
-        
-        // Cache the result if it's not from cache
+
         if (!action.payload.fromCache) {
           state.cache[action.payload.cacheKey] = {
             data: action.payload.courses,

@@ -36,6 +36,12 @@ const Navbar: React.FC = () => {
                 Meus Cursos
               </Nav.Link>
             )}
+            {user && user.type === 'admin' && (
+              <Nav.Link href="/admin/users" className="fw-semibold">
+                <i className="bi bi-people me-1"></i>
+                Gerenciar Usuários
+              </Nav.Link>
+            )}
           </Nav>
           
           <Nav className="align-items-center">
@@ -56,19 +62,7 @@ const Navbar: React.FC = () => {
                       <div className="fw-bold">{user.name}</div>
                       <small className="text-muted">{user.email}</small>
                     </Dropdown.Header>
-                    
-                    <Dropdown.Divider />
-                    
-                    <Dropdown.Item>
-                      <i className="bi bi-person me-2"></i>
-                      Perfil
-                    </Dropdown.Item>
-                    
-                    <Dropdown.Item>
-                      <i className="bi bi-gear me-2"></i>
-                      Configurações
-                    </Dropdown.Item>
-                    
+
                     <Dropdown.Divider />
                     
                     <Dropdown.Item onClick={handleLogout} className="text-danger">

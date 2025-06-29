@@ -32,7 +32,6 @@ export const coursesApi = {
     return response.data;
   },
 
-  // Get courses with user enrollment status
   getCoursesWithEnrollmentStatus: async (userId: number): Promise<CourseWithEnrollment[]> => {
     const [coursesResponse, enrollmentsResponse] = await Promise.all([
       api.get<ApiResponse<Course[]>>('/courses'),

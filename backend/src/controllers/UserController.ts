@@ -141,12 +141,20 @@ export class UserController extends BaseController<User> {
 
     async getAllUsers(req: Request, res: Response): Promise<void> {
         try {
-            const { type } = req.query;
+            const { type, search } = req.query;
             
             let users = await this.userService.GetAll();
             
             if (type && Object.values(UserType).includes(type as UserType)) {
                 users = users.filter(user => user.type === type);
+            }
+
+            if (search && typeof search === 'string') {
+                const searchTerm = search.toLowerCase();
+                users = users.filter(user => 
+                    user.name.toLowerCase().includes(searchTerm) ||
+                    user.email.toLowerCase().includes(searchTerm)
+                );
             }
 
             res.status(200).json({

@@ -25,7 +25,6 @@ const MyCourses: React.FC = () => {
     setError(null);
     
     try {
-      // Buscar cursos inscritos do usuário (já filtrados e com dados completos)
       const enrolledCourses = await enrollmentsApi.getUserEnrolledCourses(user.id);
       
       setEnrolledCourses(enrolledCourses);
@@ -50,14 +49,13 @@ const MyCourses: React.FC = () => {
       return;
     }
 
-    // Só busca os cursos se o usuário estiver carregado
     if (user?.id) {
       fetchEnrolledCourses();
     }
   }, [isAuthenticated, navigate, user?.id, fetchEnrolledCourses]);
 
   useEffect(() => {
-    // Filtrar cursos baseado no termo de busca
+
     if (searchTerm.trim() === '') {
       setFilteredCourses(enrolledCourses);
     } else {
@@ -74,10 +72,8 @@ const MyCourses: React.FC = () => {
   };
 
   const handleEnrollmentCanceled = useCallback((courseId: number) => {
-    // Marca o card como sendo removido para animação
     setRemovingCourseId(courseId);
-    
-    // Remove o curso da lista após um pequeno delay para permitir a animação
+
     setTimeout(() => {
       setEnrolledCourses(prev => prev.filter(course => course.id !== courseId));
       setFilteredCourses(prev => prev.filter(course => course.id !== courseId));

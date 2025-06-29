@@ -8,7 +8,9 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
 import MyCourses from './components/MyCourses';
+import UserAdmin from './components/UserAdmin';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -58,6 +60,14 @@ const AppContent: React.FC = () => {
             <ProtectedRoute>
               <MyCourses />
             </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin/users" 
+          element={
+            <AdminRoute>
+              <UserAdmin />
+            </AdminRoute>
           } 
         />
         <Route 

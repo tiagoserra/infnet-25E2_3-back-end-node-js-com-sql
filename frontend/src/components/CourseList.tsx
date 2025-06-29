@@ -7,7 +7,11 @@ import Pagination from './Pagination';
 import SearchBar from './SearchBar';
 import type { CourseSearchParams } from '../types';
 
-const CourseList: React.FC = () => {
+interface CourseListProps {
+  userType?: string;
+}
+
+const CourseList: React.FC<CourseListProps> = ({ userType }) => {
   const dispatch = useAppDispatch();
   const { courses, pagination, searchParams, loading, error } = useAppSelector((state) => state.courses);
   const { user } = useAppSelector((state) => state.auth);
@@ -103,7 +107,7 @@ const CourseList: React.FC = () => {
           <Row className="g-4">
             {courses.map((course) => (
               <Col key={course.id} xs={12} sm={6} md={6} lg={4} xl={3}>
-                <CourseCard course={course} />
+                <CourseCard course={course} userType={userType} />
               </Col>
             ))}
           </Row>
